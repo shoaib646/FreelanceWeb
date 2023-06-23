@@ -17,7 +17,7 @@ SECRET_KEY = 'django-insecure-(7)ub=7g6_rw!l6e+jgmenz3yhy(m#w$if*6+z)n+c*qd2fn1)
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True #config('DEBUG',default=False, cast=bool)
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['43.205.114.133']
 
 
 # Application definition
@@ -114,6 +114,7 @@ STATICFILES_DIRS = [APPONE_STATIC_DIR]
 import os
 # PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 # STATIC_ROOT = os.path.join(PROJECT_ROOT, 'static')
+STATIC_ROOT = '/var/www/mysite/assets/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
