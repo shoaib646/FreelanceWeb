@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cruz AI </title>
+
+  <!-- css files -->
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  <link rel="stylesheet" href="{% static 'css/skins/color-1.css' %}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"> -->
+  <link rel="stylesheet" href="{% static 'css/skins/color-1.css' %}" class="alternate-style" title="color-1" disabled>
+  <link rel="stylesheet" href="{% static 'css/style-switcher.css' %}">
+
+
+  
+</head>
+
+
+<body>
+  
+  <!-- Main Container Start -->
+  <div class="main-container">
+
+    <!-- Aside Start -->
+    <div class="aside">
+      <div class="logo">
+        <a href="{% url 'home' %}">Cruz<span class="blink_me">&nbsp;Ai</span></a>
+      </div>
+
+      <div class="nav-toggler">
+        <span></span>
+      </div>
+      
+      <ul class="nav">
+        <li><a href="{%url 'home' %}" class="active"><i class="fa fa-home"></i> Home</a></li>
+        <li><a href="#portfolio"><i class="fa fa-briefcase"></i>Portfolio</a>
+            <ul class="padd-15">
+                <li style="padding-top:10px;font-size: 116px;"><a href="{% url 'semone' %}"><img  height="20px" width="20px" src="data:image/png;base64,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">&nbsp;&nbsp;AIDI(1003)</a></li>
+<!--                <li style="padding-top:0.1px"><a href="{% url 'semtwo' %}"><img  height="20px" width="20px" src="data:image/png;base64,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">&nbsp;Semester 2</a></li>-->
+
+            </ul>
+        </li>
+        <li><a href="#about"><i class="fa fa-user"></i>About (Edu)</a></li>
+        <li><a href="#expertise"><i class="fa fa-list"></i>Skills</a></li>
+        <li><a href="#enquire"><i class="fa fa-comments"></i>Contact</a></li>
+      </ul>
+    </div>
+    <!-- Aside End -->
+
+
+    <!-- Main Content Start -->
+    <div class="main-content">
+
+      <!-- Home Section Start -->
+      <section class="home active section" id="home"> 
+      
+        <div class="container">
+          <div class="row">
+            <div class="home-info padd-15">
+              <h3>
+                {% if messages %}
+                <ul class="messages">
+                  {% for message in messages %}
+                  <li {% if message.tags %} class="{{ message.tags }}"{% endif %} style="color:red;  font-weight: bolder; ">{{ message }}
+                      {% endfor %}</li>
+                </ul>
+                {% endif %}
+              </h3>
+              
+              <h3 class="hello">Hello, my name is <span class="name">Shoaib Ahmed</span></h3>
+              <h3 class="my-profession">I' m a <span class="typing">Data Scientist</span></h3>
+              <p>I am a Full Stack Data Scientist with extensive experience  over 5 years. My
+                expertise is to analyse data (EDA), built predictive models also handson knowledge in developing promotional websites & scripting.</p>
+              <a href="{% static 'media/Shoaib_Shaikh_Resume.pdf' %}" class="btn" download="SAS Resume">Download Resume</a>
+            </div>
+            <div class="home-img padd-15">
+              <img src="{% static 'media/shoaib.jpg' %}" alt="check path again">
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- Home Section End -->
+
+      <!-- Portfolio Section Start -->
+      <section class="portfolio section" id="portfolio" >
+        <div class="container">
+
+          <div class="row">
+            <div class="section-title padd-15">
+              <h2>Portfolio</h2>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="portfolio-heading padd-15">
+              <h2>My Recent Projects :</h2>
+            </div>
+          </div>
+
+          <div class="row">
+
+              <!-- portfolio item start -->
+              <div class="portfolio-item padd-15">
+                <h6 style="font-size: 15px;  color: green;"><u><a href="https://www.amitchapke.com"> Web Development - Click Me</a></u></h6>
+                <div class="portfolio-item-inner shadow-dark">
+                  <div class="portfolio-img">
+                    
+                    <img src="{% static 'media/website.gif'%}" alt="">
+                  </div>
+                </div>
+              </div>
+              <!-- portfolio item END -->
+
+              <!-- portfolio item start -->
+              <div class="portfolio-item padd-15">
+                <h6 style="font-size: 15px; color: green;">Object Detection</h6>
+                <div class="portfolio-item-inner shadow-dark">
+                  <div class="portfolio-img">
+                    <img src="{% static 'media/CV.gif'%}" alt="">
+                  </div>
+                </div>
+              </div>
+              <!-- portfolio item END -->
+
+              <!-- portfolio item start -->
+              <div  class="portfolio-item padd-15">
+                <h6 style="font-size: 15px;  color: green;">Predictive Model</h6>
+                <div class="portfolio-predict" style="width: auto; height: auto; color: green;">
+                  <br><br>
+                  <p class="hello" style="color: red;">Note: This is a Stats Model Predicting Salary of a skilled Canadian Citizen based on his/her years of experience.<a
+                          href="https://www.statcan.gc.ca/">Trained Data Source</a></p><br>
+                  <form action="result">
+
+                    <h4 style=" color: green;">Years of Experience: <input type="number" name="experience" id="" required><br><br></h4>
+
+                    <button type="submit" class="btn btn-success">Predict</button>
+                    
+                </form>
+
+                </div>
+              </div>
+              <!-- portfolio item END -->
+
+
+              <!-- portfolio item start -->
+              <div class="portfolio-item padd-15">
+                <h6 style="font-size: 15px;  color: green;">Tableau Dashboard</h6>
+                  <div class="portfolio-item-inner shadow-dark">
+                    <div class="portfolio-img">
+                      <img src="{% static 'media/Dashboard.gif'%}" alt="">
+                    </div>
+                  </div>
+              </div>
+              <!-- portfolio item END -->
+
+
+              
+          </div>
+
+        </div>
+      </section>
+      <!-- Portfolio Section End -->
+
+      <!-- About Section Start -->
+      <section class="about section" id="about">
+        <div class="container">
+            <div class="row">
+                <div class="section-title padd-15">
+                    <h2>About Me </h2>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="about-content padd-15">
+
+                  <div class="row">
+                      <div class="about-text padd-15">
+                        <h3>I'm Shoaib Ahmed and  <span>Data Scientist</span></h3>
+                        <p>IT Professional with 5 years of experience building scalable applications in Analytics & Artificial Intelligence (AI) domain
+                          and having exposure in statistics analysis and machine learning, leveraging data-driven insights in Agile model.</p>
+                      </div>
+                  </div> 
+
+                  <div class="row">
+                      <div class="personal-info padd-15">
+
+                          <div class="row">
+
+                              <div class="info-item padd-15">
+                                  <p>Birthday: <span>11 Nov 1995</span></p>
+                              </div>
+
+                              <div class="info-item padd-15">
+                                  <p>Age: <span>27</span></p>
+                              </div>
+
+                              <div class="info-item padd-15">
+                                  <p>Website: <span><a href="https://www.cruzai.tech">Cruz Ai</a></span></p>
+                              </div>
+
+                              <div class="info-item padd-15">
+                                  <p>Email: <span>shoaib@cruzai.tech </span></p>
+                              </div>
+
+                              <div class="info-item padd-15">
+                                  <p>Degree: <span> MBA (IT & Systems)</span></p>
+                              </div>
+
+                              <div class="info-item padd-15">
+                                  <p>Phone: <span>+91 8451-8423-46 & +1 000-000-0000</span></p>
+                              </div>
+
+                              <div class="info-item padd-15">
+                                  <p>Location: <span>Toronto & Mumbai </span></p>
+                              </div>
+
+                              <div class="info-item padd-15">
+                                  <p>Freelance: <span>Available</span></p>
+                              </div>
+
+                          </div>
+
+                          <div class="row">
+                              <div class="buttons padd-15">
+                                  <a href="#enquire" class="btn hire-me"> Hire Me</a>
+                              </div>
+                              <!-- additional  one start -->
+
+                              <!-- first card empty for creating space -->
+                              <div class="skills padd-15">
+                                <div class="row">
+  
+                                  <div class="skill-item padd-15">
+                                    <!-- <h5>Django</h5>
+                                    <div class="progress">
+                                        <div class="progress-in" style="width: 60%;"></div>
+                                        <div class="skill-percent">60%</div>
+                                    </div> -->
+                                  </div>
+                                </div>
+                              </div>
+                              
+                              <div class="skills padd-15">
+                                <div class="row">
+                                  <div class="skill-item padd-15">
+                                    <h5>Django</h5>
+                                    <div class="progress">
+                                        <div class="progress-in" style="width: 60%;"></div>
+                                        <div class="skill-percent">60%</div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+
+                              <div class="skills padd-15">
+                                <div class="row">
+                                  <div class="skill-item padd-15">
+                                    <h5>FrontEnd Tech</h5>
+                                    <div class="progress">
+                                        <div class="progress-in" style="width: 60%;"></div>
+                                        <div class="skill-percent">60%</div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              
+                              <!-- additional  one end -->
+                          </div>
+
+                      </div>
+
+                      <div class="skills padd-15">
+                          <div class="row">
+                              
+                              <div class="skill-item padd-15">
+                                  <h5>Python</h5>
+                                  <div class="progress">
+                                      <div class="progress-in" style="width: 80%;"></div>
+                                      <div class="skill-percent">80%</div>
+                                  </div>
+                              </div>
+
+                              <div class="skill-item padd-15">
+                                  <h5>Machine & Deep Learning</h5>
+                                  <div class="progress">
+                                      <div class="progress-in" style="width: 40%;"></div>
+                                      <div class="skill-percent">40%</div>
+                                  </div>
+                              </div>
+
+                              <div class="skill-item padd-15">
+                                  <h5>Pandas</h5>
+                                  <div class="progress">
+                                      <div class="progress-in" style="width: 60%;"></div>
+                                      <div class="skill-percent">60%</div>
+                                  </div>
+                              </div>
+
+                              <div class="skill-item padd-15">
+                                  <h5>Numpy</h5>
+                                  <div class="progress">
+                                      <div class="progress-in" style="width: 50%;"></div>
+                                      <div class="skill-percent">50%</div>
+                                  </div>
+                              </div>
+
+                              <div class="skill-item padd-15">
+                                  <h5>Data Visualization - Jupyter/Tableau/Power BI</h5>
+                                  <div class="progress">
+                                      <div class="progress-in" style="width: 50%;"></div>
+                                      <div class="skill-percent">50%</div>
+                                  </div>
+                              </div>
+
+                          </div>
+                      </div>
+
+                  </div>
+
+                  <div class="row">
+
+                      <div class="education padd-15">
+                          <h3 class="title"> Education </h3>
+                          <div class="row">
+                              <div class="timeline-box padd-15">
+                                  <div class="timeline shadow-dark">
+
+                                      <!-- timeline item -->
+                                      <div class="timeline-item">
+                                          <div class="circle-dot"></div>
+                                          <h3 class="timeline-date">
+                                              <i class="fa fa-calendar"></i> Sept 2023 - Present
+                                          </h3>
+                                          <h4 class="timeline-title">Artificial Intelligence Analysis, Design and Implementation (graduate certificate)</h4>
+                                          <p class="timeline-text"> Durham College, CANADA.</p>
+                                          <div class="canadian-flag"></div>
+                                      </div>
+
+                                      <div class="timeline-item">
+                                          <div class="circle-dot"></div>
+                                          <h3 class="timeline-date">
+                                              <i class="fa fa-calendar"></i> 2018-2021
+                                          </h3>
+                                          <h4 class="timeline-title">Master in Business Administration ( IT & Systems )</h4>
+                                          <p class="timeline-text">The Institute of Chartered Financial Analysts of India, University of Tripura. INDIA</p>
+                                          <div class="indian-flag"></div>
+                                      </div>
+
+                                      <div class="timeline-item">
+                                          <div class="circle-dot"></div>
+                                          <h3 class="timeline-date">
+                                              <i class="fa fa-calendar"></i> 2014-2017
+                                          </h3>
+                                          <h4 class="timeline-title">BS (Information Technology)</h4>
+                                          <p class="timeline-text">VPM College, University of Mumbai, INDIA.</p>
+                                          <div class="indian-flag"></div>
+                                      </div>
+
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+
+                      <div class="experience padd-15">
+                          <h3 class="title"> Experience </h3>
+                          <div class="row">
+                              <div class="timeline-box padd-15">
+                                  <div class="timeline shadow-dark">
+
+                                      <!-- timeline item -->
+                                      <div class="timeline-item">
+                                          <div class="circle-dot"></div>
+                                          <h3 class="timeline-date">
+                                              <i class="fa fa-calendar"></i> Nov 2022 - August 2023
+                                          </h3>
+                                          <h4 class="timeline-title">eClerx expertises Ltd. <br>Designation: Associate Program Manager ( Data Science ) </h4>
+                                          <p class="timeline-text">Here i was aligned with the Data Aquisition team where i have mastered my Scripting Skills.</p>
+                                          <div class="indian-flag"></div>
+                                      </div>
+
+                                      <div class="timeline-item">
+                                          <div class="circle-dot"></div>
+                                          <h3 class="timeline-date">
+                                              <i class="fa fa-calendar"></i> July 2018 - Nov 2022
+                                          </h3>
+                                          <h4 class="timeline-title">Tata Consultancy expertises Ltd. <br> Designation: Junior Data Scientist ( Research & Innovation )</h4>
+                                          <p class="timeline-text">In TCS, I got the chance to work with multiple domains such as Financial Services (BFSI) handling India's major payment gateway such as RTGS, NEFT & IMPS. After which i switched my domain to TCS Research & Innovation Group (RNI) where i got my knowledge of building forecasting and predictive models from scratch. </p>
+                                          <div class="indian-flag"></div>
+                                      </div>
+
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+
+                  </div>
+
+                </div>
+            </div>
+        </div>
+      </section>
+      <!-- About Section End -->
+
+      <!-- expertise Section Start -->
+      <section class="expertise section" id="expertise">
+        <div class="container">
+
+          <div class="row">
+            <div class="section-title padd-15">
+              <h2>Expertise</h2>
+            </div>
+          </div>
+
+          <div class="row">
+
+            <!-- expertise item Start -->
+            <div class="expertise-item padd-15">
+              <div class="expertise-item-inner">
+                  <div class="icon">
+                      <i class="fa fa-laptop-code"></i>
+                  </div>
+                  <h4>Predictive Models</h4>
+                  <p>Learing from past,where my model learns pattern from existing data and predict about 80% accurate results.I do have handson experience on Classical and somewhat Quantum Computing Alogrithms such as LSTM,ARIMA & Braket.</p>
+              </div>
+            </div>
+            <!-- expertise item End -->
+            
+            <!-- expertise item Start -->
+            <div class="expertise-item padd-15">
+              <div class="expertise-item-inner">
+                  <div class="icon">
+                      <i class="fa fa-mobile-alt"></i>
+                  </div>
+                  <h4>Web Development</h4>
+                  <p>Do you know? The Base to the Maximum Trendy Application today i.e Instagram, Pinterest, Youtube, Firefox and More. its DJANGO REST FRAMEWORK, I can bring same into your website</p>
+              </div>
+            </div>
+            <!-- expertise item End -->
+
+            <!-- expertise item Start -->
+            <div class="expertise-item padd-15">
+                <div class="expertise-item-inner">
+                    <div class="icon">
+                        <i class="fa fa-search"></i>
+                    </div>
+                    <h4>Computer Vision</h4>
+                    <p>Ever wondered how to do you get charged for voilating Traffic Rules, there is no human taking those pictures its again AI, with the help of computer we can easily detect and annotate minuet objects anywhere in surroundings.</p>
+                </div>
+            </div>
+            <!-- expertise item End -->
+
+            <!-- expertise item Start -->
+            <div class="expertise-item padd-15">
+                <div class="expertise-item-inner">
+                    <div class="icon">
+                    <i class="fa fa-code"></i>
+                    </div>
+                    <h4>Web Scrapping</h4>
+                    <p>As it is said  in today's era, DATA is Gold. That's the exact work what scrapping does, extracting data from web applications.I use paid proxies on authorized website to extract data which reduces the manual work of joting down entries in excel. </p>
+                </div>
+            </div>
+            <!-- expertise item End -->
+
+            <!-- expertise item Start -->
+            <div class="expertise-item padd-15">
+                <div class="expertise-item-inner">
+                    <div class="icon">
+                    <i class="fa fa-laptop-code"></i>
+                    </div>
+                    <h4>Automation</h4>
+                    <p>Here i built scalable & extendable code which ease read and write functionality, optimized for specific tasks like Automating repetitive tasks, performing system administration tasks, data processing, and more. </p>
+                </div>
+            </div>
+            <!-- expertise item End -->
+
+            <!-- expertise item Start -->
+            <div class="expertise-item padd-15">
+                <div class="expertise-item-inner">
+                    <div class="icon">
+                    <i class="fa fa-window-close"></i>
+                    </div>
+                    <h4>Anamoly Detection</h4>
+                    <p>Outlier detection which i use to identify unusual or abnormal patterns or instances within a dataset. This helps in various domains such as fraud detection.</p>
+                </div>
+            </div>
+            <!-- expertise item End -->
+
+          </div>
+        </div>
+      </section>
+      <!-- expertise Section End -->
+
+      <!-- enquire Section Start -->
+      <section class="enquire section" id="enquire">
+
+
+        <div class="container">
+
+          <div class="row">
+            <div class="section-title padd-15">
+              <h2>Enquire</h2>
+            </div>
+          </div>
+
+          <h3 class="enquire-title padd-15">Got Queries ?</h3>
+          <div class="row">
+            <!-- enquire info item start -->
+            <div class="enquire-info-item padd-15">
+              <div class="icon"><i class="fa fa-phone"></i></div>
+              <h4>Call Us On</h4>
+              <p>+91 8451842346</p>
+            </div>
+            <!-- enquire info item end -->
+
+            <!-- enquire info item start -->
+            <div class="enquire-info-item padd-15">
+              <div class="icon"><i class="fa fa-map-marker-alt"></i></div>
+              <h4>Place</h4>
+              <p>Toronto</p>
+            </div>
+            <!-- enquire info item end -->
+
+            <!-- enquire info item start -->
+            <div class="enquire-info-item padd-15">
+              <div class="icon"><i class="fa fa-envelope"></i></div>
+              <h4>Email</h4>
+              <p>info@gmail.com</p>
+            </div>
+            <!-- enquire info item end -->
+
+            <!-- enquire info item start -->
+            <div class="enquire-info-item padd-15">
+              <div class="icon"><i class="fa fa-globe-europe"></i></div>
+              <h4>Website</h4>
+                <p><a href="https://www.cruzai.tech">Cruz AI</a></p>
+            </div>
+            <!-- enquire info item end -->
+
+          </div>
+         
+
+          <h3 class="enquire-title padd-15">SEND ME AN EMAIL</h3>
+          
+          <h4 class="enquire-sub-title padd-15">Extremely Responsive to form Submissions</h4>
+
+
+          
+
+          <form action="{% url 'home' %}" method="post">
+            {% csrf_token %}
+            <div class="enquire-form padd-15">
+
+              <div class="row">
+                <div class="form-item col-6 padd-15">
+                  <div class="form-group">
+                    {{ form.name }}
+                  </div>
+                </div>
+                <div class="form-item col-6 padd-15">
+                  <div class="form-group">
+                    {{ form.email_or_contact }}
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="form-item col-12 padd-15">
+                  <div class="form-group">
+                    {{ form.subject }}
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="form-item col-12 padd-15">
+                  <div class="form-group">
+                    {{ form.message }}
+                  </div>
+                </div>
+              </div>
+
+
+
+              <div class="row">
+                <div class="form-item col-12 padd-15">
+                  <button type="submit" class="btn">Send Message</button>
+
+                </div>
+              </div>
+
+
+            </div>
+
+<!--            <script src="https://checkout.razorpay.com/v1/payment-button.js" data-payment_button_id="pl_M46sClS0SRJ41b" async> </script>-->
+
+          </form>
+
+        </div>
+
+
+
+      </section>
+      <!-- enquire Section End -->
+
+    </div>
+
+  
+  </div>
+  <!-- Main Container End -->
+
+  <!-- Style Switcher Start -->
+  <div class="style-switcher">
+    <div class="style-switcher-toggler">
+      <i class="fas fa-cog fa-spin"></i>
+    </div>
+    <div class="day-night s-icon">
+      <i class="fas "></i>
+    </div>
+    <h4>Theme Colors</h4>
+    <div class="colors">
+      <span class="color-1" onclick="setActiveStyle('color-1')"></span>
+    </div>
+  </div>
+  <!-- Style Switcher End -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.0.12/typed.min.js" referrerpolicy="no-referrer"></script>
+  <script src="{% static 'js/script.js' %}"></script>
+  <script src="{% static 'js/style-switcher.js' %}"></script>
+
+
+</body>
+</html>
